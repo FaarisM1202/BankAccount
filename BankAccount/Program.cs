@@ -1,4 +1,4 @@
 ﻿using BankAccount;
 
-Account myAccount = new("Bobby Brown");
+Account myAccount = new("J. Doe");
 myAccount.Deposit(500);
