@@ -48,9 +48,10 @@ namespace BankAccount
         /// Amount of money took from the account
         /// </summary>
         /// <param name="amt"></param>
-        public void Withdraw(double amt)
+        public double Withdraw(double amt)
         {
-            throw new NotImplementedException();
+            Balance -= amt;
+            return Balance;
         }
 
 
