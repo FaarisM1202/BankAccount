@@ -11,6 +11,8 @@ namespace BankAccount
     /// </summary>
     public class Account
     {
+        private string owner;
+
         /// <summary>
         /// Creates acc with specific owner and the balance of 0
         /// </summary>
@@ -23,7 +25,59 @@ namespace BankAccount
         /// <summary>
         /// The acc holder, full name
         /// </summary>
-        public string Owner { get; set; }
+        public string Owner {
+            get { return owner; } 
+            set 
+            {
+                if(value == null)
+                {
+                    throw new ArgumentNullException($"{nameof(Owner)} cannot be null");
+                }
+                if(value.Trim() == string.Empty)
+                {
+                    throw new ArgumentException($"{nameof(Owner)} must have some text");
+                }
+
+                if(IsOwnerNameValid(value))
+                {
+                    owner = value;
+                }
+                else
+                {
+                    throw new ArgumentException($"{nameof(Owner)} can be up to 20 characters, A-Z");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks if Owner name is less than or equal to 20 characters, A-Z, white
+        /// spaces are allowed.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool IsOwnerNameValid(string ownerName)
+        {
+            char[] validCharacters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+                'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+                'y', 'z' };
+            ownerName = ownerName.ToLower();
+
+            const int MaxLengthOwnerName = 20;
+
+            if(ownerName.Length > MaxLengthOwnerName)
+            {
+                return false;
+            }
+
+            foreach(char letter in ownerName)
+            {
+                if(letter != ' ' && !validCharacters.Contains(letter))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
         /// <summary>
         /// Amount of money in the account currently
@@ -36,7 +90,7 @@ namespace BankAccount
         /// <param name="amt"></param>
         public double Deposit(double amt)
         {
-            if(amt <= 0)
+            if (amt <= 0)
             {
                 throw new ArgumentOutOfRangeException($"The {nameof(amt)} must be more than 0");
             }
@@ -50,6 +104,14 @@ namespace BankAccount
         /// <param name="amt"></param>
         public double Withdraw(double amt)
         {
+            if (amt <= 0)
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(amt)} must be greater than 0");
+            }
+            else if (amt > Balance)
+            {
+                throw new ArgumentException($"{nameof(amt)} cannot be greater than balance");
+            }
             Balance -= amt;
             return Balance;
         }
