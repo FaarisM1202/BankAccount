@@ -50,6 +50,14 @@ namespace BankAccount
         /// <param name="amt"></param>
         public double Withdraw(double amt)
         {
+            if(amt <= 0)
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(amt)} must be greater than 0");
+            }
+            else if(amt > Balance)
+            {
+                throw new ArgumentException($"{nameof(amt)} cannot be greater than balance");
+            }
             Balance -= amt;
             return Balance;
         }
