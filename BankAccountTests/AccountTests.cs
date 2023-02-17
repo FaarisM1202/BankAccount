@@ -16,7 +16,7 @@ namespace BankAccount.Tests
         [TestInitialize]
         public void CreateDefaultAccount()
         {
-            acc = new("J. Doe");
+            acc = new("J Doe");
         }
 
         [TestMethod()]
@@ -136,12 +136,12 @@ namespace BankAccount.Tests
         }
 
         [TestMethod]
-        [DataRow("John 2nd")]
-        [DataRow("John Doe Is Dope Bros")]
-        [DataRow("z<|`~._.~`|>z")]
-        public void Owner_InvalidOwnerName_ThrowsArgumentException()
+        [DataRow("Joe 3rd")]
+        [DataRow("Joseph Ortizio Smiths")]
+        [DataRow("$$%$#")]
+        public void Owner_InvalidOwnerName_ThrowsArgumentException(string ownerName)
         {
-            Assert.Fail();
+            Assert.ThrowsException<ArgumentException>(() => acc.Owner = ownerName);
         }
     }
 }

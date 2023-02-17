@@ -31,11 +31,11 @@ namespace BankAccount
             {
                 if(value == null)
                 {
-                    throw new ArgumentNullException($"{nameof(Owner)} cannot be null!");
+                    throw new ArgumentNullException($"{nameof(Owner)} cannot be null");
                 }
                 if(value.Trim() == string.Empty)
                 {
-                    throw new ArgumentException($"{nameof(Owner)} must have some text!");
+                    throw new ArgumentException($"{nameof(Owner)} must have some text");
                 }
 
                 if(IsOwnerNameValid(value))
@@ -44,7 +44,7 @@ namespace BankAccount
                 }
                 else
                 {
-                    throw new ArgumentException($"{nameof(Owner)} can be up to 20 characters, A-Z! (Can contain spaces)");
+                    throw new ArgumentException($"{nameof(Owner)} can be up to 20 characters, A-Z");
                 }
             }
         }
@@ -55,12 +55,20 @@ namespace BankAccount
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        private bool IsOwnerNameValid(string ownerName)
+        public bool IsOwnerNameValid(string ownerName)
         {
             char[] validCharacters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
                 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
                 'y', 'z' };
-            ownerName = ownerName.ToLower(); // only needs to compare to one casing.
+            ownerName = ownerName.ToLower();
+
+            const int MaxLengthOwnerName = 20;
+
+            if(ownerName.Length > MaxLengthOwnerName)
+            {
+                return false;
+            }
+
             foreach(char letter in ownerName)
             {
                 if(letter != ' ' && !validCharacters.Contains(letter))
@@ -84,7 +92,7 @@ namespace BankAccount
         {
             if (amt <= 0)
             {
-                throw new ArgumentOutOfRangeException($"The {nameof(amt)} must be more than 0!");
+                throw new ArgumentOutOfRangeException($"The {nameof(amt)} must be more than 0");
             }
             Balance += amt;
             return Balance;
@@ -98,11 +106,11 @@ namespace BankAccount
         {
             if (amt <= 0)
             {
-                throw new ArgumentOutOfRangeException($"{nameof(amt)} must be greater than 0!");
+                throw new ArgumentOutOfRangeException($"{nameof(amt)} must be greater than 0");
             }
             else if (amt > Balance)
             {
-                throw new ArgumentException($"{nameof(amt)} cannot be greater than balance!");
+                throw new ArgumentException($"{nameof(amt)} cannot be greater than balance");
             }
             Balance -= amt;
             return Balance;
