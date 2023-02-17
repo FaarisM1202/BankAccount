@@ -77,5 +77,26 @@ namespace BankAccount.Tests
             // Assert
             Assert.AreEqual(expectedBalance, actualBalance);
         }
+
+        [TestMethod]
+        public void Withdraw_APositiveAmount_ReturnsUpdatedBalance()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        [DataRow(0)]
+        [DataRow(-0.1)]
+        [DataRow(-1000)]
+        public void Withdraw_ZeroOrLess_ThrowsArgumentOutOfRangeException()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void Withdraw_MoreThanAvailableBalance_ThrowsArgumentException()
+        {
+            Assert.Fail();
+        }
     }
 }
