@@ -14,7 +14,7 @@ namespace BankAccount.Tests
         private Account acc;
 
         [TestInitialize]
-        private void CreateDefaultAccount()
+        public void CreateDefaultAccount()
         {
             acc = new("J. Doe");
         }
