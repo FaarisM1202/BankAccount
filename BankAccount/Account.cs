@@ -34,9 +34,10 @@ namespace BankAccount
         /// Gets the specified amount of money to the account
         /// </summary>
         /// <param name="amt"></param>
-        public void Deposit(double amt)
+        public double Deposit(double amt)
         {
-            throw new NotImplementedException();
+            Balance += amt;
+            return Balance;
         }
 
         /// <summary>
@@ -47,5 +48,7 @@ namespace BankAccount
         {
             throw new NotImplementedException();
         }
+
+
     }
 }
